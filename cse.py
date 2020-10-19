@@ -4,7 +4,7 @@ import pprint
 from googleapiclient.discovery import build
 
 my_api_key = config.my_api_key
-my_cse_id = '0b6f46ef574bad847'
+my_cse_id = config.my_cse_id
 my_search_topic = 'bootstrap'
 
 def google_search(search_term, api_key, cse_id, **kwargs):

@@ -12,7 +12,7 @@ This script will search www.W3Schools.com through my custom search engine provid
 
 ## Usage
 
-Modify config.py and insert your own API key. In the Amazon Linux 2 bash terminal, type python3 cse.py and the search format in .json format should appear as output.
+Modify config.py and insert your own API key and CSE ID. In the Amazon Linux 2 bash terminal, type python3 cse.py and the search format in .json format should appear as output.
 
 # Retrieving Data From YouTube
 
