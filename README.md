@@ -32,7 +32,7 @@ Make sure your JSON files from the YouTube data extraction are in the same direc
 
 # Creating Whoosh Indexing and Performing a Test Query
 
-These scripts will create a whoosh index for YouTube data and then perform a test search query with said index, in that order.
+These scripts will create a whoosh index for YouTube data and then perform a test search query with said index, in that order. The Whoosh query will return multiple pages of search results.
 
 ## Usage
 
