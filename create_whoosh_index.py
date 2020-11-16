@@ -4,8 +4,10 @@ import json
 
 from whoosh.index import create_in
 from whoosh.fields import Schema, TEXT, ID
+from whoosh.analysis import StemmingAnalyzer
 
-schema = Schema(id=ID(stored=True), title=TEXT(stored=True), description=TEXT(stored=True))
+stem_analyzer = StemmingAnalyzer()
+schema = Schema(id=ID(stored=True), title=TEXT(stored=True), description=TEXT(analyzer=stem_analyzer, stored=True))
 if not os.path.exists("indexdir"):
     os.mkdir("indexdir")
 

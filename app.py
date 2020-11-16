@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request, jsonify
 import query_on_whoosh
-import smtplib
 import config
 import math
+import sqlite3
+import smtplib
 
 # turn this file (app.py) into a web app
 app = Flask(__name__)
@@ -30,12 +31,20 @@ def handle_query_view():
     if not page_index_arg:
         page_index_arg = "1"
 
+    conn = sqlite3.connect('history.db')
+    c = conn.cursor()
+    c.execute("INSERT INTO search_terms (term, search_time) VALUES (?, strftime('%s', 'now'));", (query_term,))
+    c.execute("SELECT * FROM search_terms;")
+    rows = c.fetchall()
+    conn.commit()
+    conn.close()
+
     page_index = int(page_index_arg)
     query_results = query_on_whoosh.query(query_term, current_page=page_index)
     search_results = query_results[0]
     results_cnt = int(query_results[1])
     page_cnt = math.ceil(results_cnt / 10)
-    return render_template("query.html", results = search_results, page_cnt=page_cnt, query_term=query_term)
+    return render_template("query.html", results = search_results, page_cnt=page_cnt, query_term=query_term, history_list=rows)
 
 @app.route("/about", strict_slashes=False)
 def handle_about():
@@ -48,5 +57,5 @@ def handle_request():
     server.starttls()
     server.login("j.rogalski3260@gmail.com", config.gmail_password)
     message = "Subject: {}\n\n{}".format("Request to add new data", "request to add: " + new_data)
-    server.sendmail("j.rogalski3260@gmail.com", "j.rogalski3260@gmail.com", "request " + new_data)
+    server.sendmail("j.rogalski3260@gmail.com", "j.rogalski3260@gmail.com", message)
     return render_template("success.html", new_data=new_data)
