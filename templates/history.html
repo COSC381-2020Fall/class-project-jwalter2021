@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align:left;
+        padding:5px;
+    }   
+</style>
+
+<table>
+    <tr>
+        <th>Topic</th>
+        <th>Search Term</th>
+        <th>Time and Date</th>
+        <th>Delete</th>
+    </tr>
+    {% for history_item in history_list %}
+    <tr>
+        <td>{{ history_item[1] }}</td>
+        <td>{{ history_item[2] }}</td>
+        <td>{{ history_item[3] }}</td>
+        <td><a href="remove_history?q={{ history_item[0] }}">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

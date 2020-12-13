@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<form action="save_settings" method="get" name='settings'>
+    <label for="history">Search History</label>
+    <input id="history" name="history" type="checkbox"><br><br>
+    <input type="submit" value="Save Settings">
+</form>
+{% endblock %}
